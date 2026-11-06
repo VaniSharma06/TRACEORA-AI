@@ -1,0 +1,23 @@
+TRACEORA AI backend update
+
+1. Back up your current backend/main.py, requirements.txt and .env.
+2. Replace backend/main.py and backend/requirements.txt with the files in this folder.
+3. Create backend/.env from .env.example and fill in:
+   - GROQ_API_KEY with your private Groq API key
+   - DATABASE_URL with your PostgreSQL connection string
+4. Install PostgreSQL locally or create a PostgreSQL database with a trusted provider.
+5. In the backend terminal, run:
+   pip install -r requirements.txt
+   python -m uvicorn main:app --reload
+6. Open http://127.0.0.1:8000/api/health.
+   It should report PostgreSQL connected and Groq configured.
+7. Submit a synthetic incident through the app. A successful result should show
+   mode beginning with "Groq + LangGraph".
+
+Important:
+- The updated backend intentionally refuses to start if PostgreSQL or the Groq key
+  is not configured. It will not silently use SQLite or fake an AI result.
+- Existing SQLite records are not migrated automatically. Keep your old traceora.db
+  as a backup; migrate records separately if needed.
+- Do not commit .env or expose API keys.
+- This is a prototype decision-support application, not validated GMP software.
